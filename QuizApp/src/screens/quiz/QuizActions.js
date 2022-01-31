@@ -1,3 +1,4 @@
+import {navigate} from '../../services/NavigationService';
 import * as Navigate from '../../services/NavigationService';
 import SummaryReducer from '../summary/SummaryReducer';
 
@@ -16,7 +17,7 @@ function shuffleArray(array) {
 export const getData = url => {
   return dispatch => {
     dispatch({type: 'SET_LOADING', payload: true});
-    console.log(url);
+    //console.log(url);
     fetch(url)
       .then(data => {
         return data.json();
@@ -27,7 +28,7 @@ export const getData = url => {
           response.results[0].correct_answer,
         ];
         tempArray = shuffleArray(tempArray);
-        console.log('resposne = ', response);
+        // console.log('resposne = ', response);
         dispatch({
           type: 'SET_DATA',
           payload: {
@@ -41,7 +42,7 @@ export const getData = url => {
         Navigate.navigate('Quiz');
       })
       .catch(error => {
-        console.log('error = ', error);
+        // console.log('error = ', error);
       });
   };
 };
@@ -67,5 +68,12 @@ export const quizOver = () => {
   return dispatch => {
     dispatch({type: 'SET_LOADING', payload: false});
     Navigate.navigate('Summary');
+  };
+};
+
+export const newQuiz = () => {
+  return dispatch => {
+    dispatch({type: 'ERASE_DATA'});
+    Navigate.navigate('Home');
   };
 };

@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux';
+import LevelBar from './components/LevelBar';
 import {start} from './HomeActions';
 import {homeStyles} from './HomeStyles';
 import * as HomeActions from './HomeActions';
@@ -16,16 +17,15 @@ import * as HomeActions from './HomeActions';
 class HomeScreen extends React.Component {
   constructor() {
     super();
-    console.log(this.props);
+
     this.state = {
-      noOfQuestions: 10,
-      level: 'randam',
+      noOfQuestions: '10',
     };
   }
 
   render() {
     const start = () => {
-      this.props.start(this.state.noOfQuestions, this.state.level);
+      this.props.start(this.state.noOfQuestions, this.props.level);
     };
     return (
       <View style={homeStyles.mainContainer}>
@@ -37,11 +37,11 @@ class HomeScreen extends React.Component {
               value={this.state.noOfQuestions}
               keyboardType="numeric"
               onChangeText={text => {
-                this.setState({noOfQuestions: parseInt(text)});
+                this.setState({noOfQuestions: text});
               }}
             />
             <View style={homeStyles.levelContainer}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={
                   this.state.level == 'easy'
                     ? homeStyles.levelButtonsPress
@@ -89,6 +89,31 @@ class HomeScreen extends React.Component {
             <View style={homeStyles.loginContainer}>
               <TouchableOpacity style={homeStyles.startButton} onPress={start}>
                 <Text>Start Quiz</Text>
+              </TouchableOpacity>*/}
+              <LevelBar
+                level={this.props.level}
+                name="easy"
+                onPress={this.props.setLevel}
+              />
+              <LevelBar
+                level={this.props.level}
+                name="medium"
+                onPress={this.props.setLevel}
+              />
+              <LevelBar
+                level={this.props.level}
+                name="hard"
+                onPress={this.props.setLevel}
+              />
+              <LevelBar
+                level={this.props.level}
+                name="randam"
+                onPress={this.props.setLevel}
+              />
+            </View>
+            <View style={homeStyles.loginContainer}>
+              <TouchableOpacity style={homeStyles.startButton} onPress={start}>
+                <Text>Start Quiz</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -105,6 +130,7 @@ class HomeScreen extends React.Component {
 function mapStateToProps(store) {
   return {
     loading: store.HomeReducer.loading,
+    level: store.HomeReducer.level,
   };
 }
 
@@ -112,6 +138,9 @@ function mapDispatchToProps(dispatch) {
   return {
     start: (numberOfQuestions, level) => {
       dispatch(HomeActions.start(numberOfQuestions, level));
+    },
+    setLevel: level => {
+      dispatch({type: 'SET_LEVEL', payload: level});
     },
   };
 }

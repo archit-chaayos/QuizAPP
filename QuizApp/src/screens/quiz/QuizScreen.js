@@ -7,46 +7,13 @@ import {
   View,
 } from 'react-native';
 import store from '../../Store';
+import NewQuiz from './component/NewQuiz';
+import ScoreBoard from './component/ScoreBoard';
 import * as quizActions from './QuizActions';
 import {connect} from 'react-redux';
-const screenHeight = Dimensions.get('screen').height;
-const screenWidth = Dimensions.get('screen').width;
-import {StyleSheet} from 'react-native';
-
-const QuizStyles = StyleSheet.create({
-  choiceButtons: {
-    margin: 10,
-    width: '42%',
-    height: '10%',
-
-    borderStyle: 'solid',
-    borderWidth: 1,
-    textAlign: 'center',
-    padding: 20,
-  },
-  choiceButtonsWrong: {
-    margin: 10,
-    width: '42%',
-    height: '10%',
-
-    borderStyle: 'solid',
-    borderWidth: 1,
-    textAlign: 'center',
-    padding: 20,
-    backgroundColor: '#FF6666',
-  },
-  choiceButtonsRight: {
-    margin: 10,
-    width: '42%',
-    height: '10%',
-
-    borderStyle: 'solid',
-    borderWidth: 1,
-    textAlign: 'center',
-    padding: 20,
-    backgroundColor: '#38CC77',
-  },
-});
+import * as Navigation from '../../services/NavigationService';
+import quizStyles from './QuizStyles';
+import QuizStyles from './QuizStyles';
 
 class QuizScreen extends React.Component {
   constructor() {
@@ -60,9 +27,10 @@ class QuizScreen extends React.Component {
     const check = choice => {
       if (choice === this.state.userAnswer) {
         if (this.state.isCorrect) {
-          return QuizStyles.choiceButtonsRight;
+          return [QuizStyles.choiceButtons, QuizStyles.choiceButtonsRight];
         }
-        return QuizStyles.choiceButtonsWrong;
+
+        return [QuizStyles.choiceButtons, QuizStyles.choiceButtonsWrong];
       }
       return QuizStyles.choiceButtons;
     };
@@ -86,48 +54,42 @@ class QuizScreen extends React.Component {
         } else {
           this.props.nextQuestion(this.props.url);
         }
-      }, 500);
+      }, 400);
     };
     return (
       <View>
         {!this.props.loading ? (
-          <View
-            style={{
-              marginTop: '20%',
-              alignItems: 'center',
-              height: screenHeight,
-              width: screenWidth,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
-            <Text>
-              {' '}
-              {this.props.correctTotal}/{this.props.total}
-            </Text>
-            <Text
-              style={{
-                width: '100%',
-                borderStyle: 'solid',
-                borderWidth: 1,
-                textAlign: 'center',
-                height: '20%',
-                textAlignVertical: 'center',
-                marginTop: '10%',
-              }}>
+          <View style={QuizStyles.mainContainer}>
+            <ScoreBoard
+              total={this.props.total}
+              correctTotal={this.props.correctTotal}
+            />
+            <Text style={QuizStyles.questionContainer}>
               {this.props.question}
             </Text>
-            {this.props.choices.map(choice => {
+
+            {this.props.choices.map((choice, key) => {
               return (
                 <TouchableOpacity
+                  key={key}
                   style={check(choice)}
                   onPress={() => {
                     answer(choice);
                     getNextQuestion();
                   }}>
-                  <Text>{choice}</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      color: '#0D0D0D',
+                    }}>
+                    {choice}
+                  </Text>
                 </TouchableOpacity>
               );
             })}
+            <View style={quizStyles.newQuiz}>
+              <NewQuiz onPress={this.props.newQuiz} />
+            </View>
           </View>
         ) : (
           <View>
@@ -163,6 +125,9 @@ const mapDispatchToProps = dispatch => {
     },
     quizOver: () => {
       dispatch(quizActions.quizOver());
+    },
+    newQuiz: () => {
+      dispatch(quizActions.newQuiz());
     },
   };
 };

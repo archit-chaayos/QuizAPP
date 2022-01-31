@@ -17,6 +17,12 @@ export default function SummaryReducer(
         total: state.total + 1,
         correct: state.correct + action.payload.correct,
       };
+    case 'ERASE_DATA':
+      return {
+        summary: [],
+        total: 0,
+        correct: 0,
+      };
     default:
       return state;
   }

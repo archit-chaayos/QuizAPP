@@ -15,6 +15,13 @@ export default function QuizReducer(
         ...state,
         url: action.payload,
       };
+    case 'ERASE_DATA':
+      return {
+        question: '',
+        choices: [],
+        url: '',
+        answer: '',
+      };
     default:
       return state;
   }

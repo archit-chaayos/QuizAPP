@@ -67,10 +67,13 @@ const App: () => Node = () => {
     <SafeAreaView
       forceInset={{vertical: 'always'}}
       style={{flex: 1, backgroundColor: '#FFF'}}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Provider store={store}>
-        <NavigationScreen />
-      </Provider>
+      <ScrollView contentContainerStyle={{flex: 1}}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+
+        <Provider store={store}>
+          <NavigationScreen />
+        </Provider>
+      </ScrollView>
     </SafeAreaView>
   );
 };
