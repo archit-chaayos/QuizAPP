@@ -87,9 +87,7 @@ class QuizScreen extends React.Component {
                 </TouchableOpacity>
               );
             })}
-            <View style={quizStyles.newQuiz}>
-              <NewQuiz onPress={this.props.newQuiz} />
-            </View>
+            <NewQuiz onPress={this.props.newQuiz} />
           </View>
         ) : (
           <View>

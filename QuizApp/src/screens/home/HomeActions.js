@@ -4,7 +4,7 @@ export const start = (noOfQuestions, level) => {
     dispatch({type: 'SET_LOADING', payload: true});
     dispatch({type: 'SET_NO_OF_QUESTIONS', payload: parseInt(noOfQuestions)});
     dispatch({type: 'SET_LEVEL', payload: level});
-
+    level = level == 'random' ? '' : level;
     const url = `https://opentdb.com/api.php?amount=1&difficulty=${level}&type=multiple`;
     dispatch({type: 'SET_URL', payload: url});
     dispatch(quizActions.getData(url));

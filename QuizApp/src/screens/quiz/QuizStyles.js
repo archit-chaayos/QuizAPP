@@ -39,7 +39,7 @@ const QuizStyles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     textAlign: 'center',
-    padding: 20,
+    padding: 10,
   },
   choiceButtonsWrong: {
     backgroundColor: '#FF6666',
@@ -50,11 +50,12 @@ const QuizStyles = StyleSheet.create({
   newQuiz: {
     marginTop: 10,
 
-    borderStyle: 'dotted',
-
+    borderStyle: 'solid',
+    borderWidth: 1,
     borderRadius: 100,
-    padding: 5,
-    backgroundColor: '#5DA3FA',
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+    borderColor: '#424242',
   },
 });
 

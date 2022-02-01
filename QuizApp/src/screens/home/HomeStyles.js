@@ -4,8 +4,7 @@ const screenWidth = Dimensions.get('screen').width;
 export const homeStyles = StyleSheet.create({
   levelButtonsPress: {
     flex: 1,
-    borderStyle: 'solid',
-    borderWidth: 1,
+
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
@@ -13,16 +12,15 @@ export const homeStyles = StyleSheet.create({
   },
   levelButtonsNormal: {
     flex: 1,
-    borderStyle: 'solid',
-    borderWidth: 1,
+
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
   },
   startButton: {
     flex: 1,
-    borderStyle: 'solid',
-    borderWidth: 1,
+    /*borderStyle: 'solid',
+    borderWidth: 1,*/
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
@@ -36,9 +34,6 @@ export const homeStyles = StyleSheet.create({
   },
   levelContainer: {
     flexDirection: 'row',
-
-    borderStyle: 'solid',
-    borderWidth: 1,
     marginTop: '20%',
   },
   loginContainer: {
@@ -47,8 +42,8 @@ export const homeStyles = StyleSheet.create({
   },
   inputContainer: {
     textAlign: 'center',
-    borderStyle: 'solid',
-    borderWidth: 1,
+    /* borderStyle: 'solid',
+    borderWidth: 1,*/
     width: '100%',
   },
 });

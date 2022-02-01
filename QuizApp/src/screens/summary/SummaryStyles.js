@@ -6,10 +6,11 @@ export const summaryItemStyles = StyleSheet.create({
     width: screenWidth,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 15,
+    marginBottom: 15,
     height: 130,
-    backgroundColor: '#c7c7c7',
+    /*backgroundColor: '#c7c7c7',*/
+    backgroundColor: '#D9D9D9',
   },
   answer: {
     textAlign: 'center',
@@ -31,7 +32,7 @@ export const summaryItemStyles = StyleSheet.create({
     borderWidth: 1,
     fontWeight: 'bold',
     color: '#242B2E',
-    backgroundColor: '#c7c7c7',
+    /*backgroundColor: '#c7c7c7',*/
   },
 });
 

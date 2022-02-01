@@ -23,6 +23,12 @@ class HomeScreen extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      noOfQuestions: '10',
+    });
+  }
+
   render() {
     const start = () => {
       this.props.start(this.state.noOfQuestions, this.props.level);
@@ -41,55 +47,6 @@ class HomeScreen extends React.Component {
               }}
             />
             <View style={homeStyles.levelContainer}>
-              {/* <TouchableOpacity
-                style={
-                  this.state.level == 'easy'
-                    ? homeStyles.levelButtonsPress
-                    : homeStyles.levelButtonsNormal
-                }
-                onPress={() => {
-                  this.setState({level: 'easy'});
-                }}>
-                <Text>EASY</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  this.state.level == 'medium'
-                    ? homeStyles.levelButtonsPress
-                    : homeStyles.levelButtonsNormal
-                }
-                onPress={() => {
-                  this.setState({level: 'medium'});
-                }}>
-                <Text>MEDIUM</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  this.state.level == 'hard'
-                    ? homeStyles.levelButtonsPress
-                    : homeStyles.levelButtonsNormal
-                }
-                onPress={() => {
-                  this.setState({level: 'hard'});
-                }}>
-                <Text>HARD</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  this.state.level == 'randam'
-                    ? homeStyles.levelButtonsPress
-                    : homeStyles.levelButtonsNormal
-                }
-                onPress={() => {
-                  this.setState({level: 'randam'});
-                }}>
-                <Text>RANDAM</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={homeStyles.loginContainer}>
-              <TouchableOpacity style={homeStyles.startButton} onPress={start}>
-                <Text>Start Quiz</Text>
-              </TouchableOpacity>*/}
               <LevelBar
                 level={this.props.level}
                 name="easy"
@@ -107,7 +64,7 @@ class HomeScreen extends React.Component {
               />
               <LevelBar
                 level={this.props.level}
-                name="randam"
+                name="random"
                 onPress={this.props.setLevel}
               />
             </View>

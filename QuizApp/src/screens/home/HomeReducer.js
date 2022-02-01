@@ -1,7 +1,7 @@
 import {act} from 'react-test-renderer';
 
 export default function HomeReducer(
-  state = {numberOfQuestions: 0, level: 'easy', loading: false},
+  state = {numberOfQuestions: 10, level: 'easy', loading: false},
   action,
 ) {
   switch (action.type) {
@@ -12,7 +12,7 @@ export default function HomeReducer(
     case 'SET_LOADING':
       return {...state, loading: action.payload};
     case 'ERASE_DATA':
-      return {numberOfQuestions: 0, level: 'easy', leading: false};
+      return {numberOfQuestions: 10, level: 'easy', leading: false};
     default:
       return state;
   }
