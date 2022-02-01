@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Dimensions,
   Text,
   TouchableOpacity,
@@ -23,38 +24,61 @@ class QuizScreen extends React.Component {
       isCorrect: 0,
     };
   }
-  render() {
-    const check = choice => {
-      if (choice === this.state.userAnswer) {
-        if (this.state.isCorrect) {
-          return [QuizStyles.choiceButtons, QuizStyles.choiceButtonsRight];
-        }
+  check(choice) {
+    if (choice === this.state.userAnswer) {
+      if (this.state.isCorrect) {
+        return [QuizStyles.choiceButtons, QuizStyles.choiceButtonsRight];
+      }
 
-        return [QuizStyles.choiceButtons, QuizStyles.choiceButtonsWrong];
-      }
-      return QuizStyles.choiceButtons;
-    };
-    const answer = choice => {
-      if (choice === this.props.answer) {
-        this.setState({isCorrect: 1, userAnswer: choice});
+      return [QuizStyles.choiceButtons, QuizStyles.choiceButtonsWrong];
+    }
+    return QuizStyles.choiceButtons;
+  }
+
+  answer(choice) {
+    if (choice === this.props.answer) {
+      this.setState({isCorrect: 1, userAnswer: choice});
+    } else {
+      this.setState({isCorrect: 0, userAnswer: choice});
+    }
+  }
+
+  getNextQuestion() {
+    setTimeout(() => {
+      this.props.setData(
+        this.props.question,
+        this.state.userAnswer,
+        this.props.answer,
+        this.state.isCorrect,
+      );
+      if (this.props.total >= this.props.totalSelected) {
+        this.props.quizOver();
       } else {
-        this.setState({isCorrect: 0, userAnswer: choice});
+        this.props.nextQuestion(this.props.url);
       }
-    };
-    const getNextQuestion = () => {
-      setTimeout(() => {
-        this.props.setData(
-          this.props.question,
-          this.state.userAnswer,
-          this.props.answer,
-          this.state.isCorrect,
-        );
-        if (this.props.total >= this.props.totalSelected) {
-          this.props.quizOver();
-        } else {
-          this.props.nextQuestion(this.props.url);
-        }
-      }, 400);
+    }, 400);
+  }
+
+  render() {
+    const showConfirmDialog = () => {
+      return Alert.alert(
+        'Are your sure?',
+        'Are you sure you want to start Quiz from scratch',
+        [
+          // The "Yes" button
+          {
+            text: 'Yes',
+            onPress: () => {
+              this.props.newQuiz();
+            },
+          },
+          // The "No" button
+          // Does nothing but dismiss the dialog when tapped
+          {
+            text: 'No',
+          },
+        ],
+      );
     };
     return (
       <View>
@@ -72,10 +96,10 @@ class QuizScreen extends React.Component {
               return (
                 <TouchableOpacity
                   key={key}
-                  style={check(choice)}
+                  style={this.check(choice)}
                   onPress={() => {
-                    answer(choice);
-                    getNextQuestion();
+                    this.answer(choice);
+                    this.getNextQuestion();
                   }}>
                   <Text
                     style={{
@@ -87,7 +111,7 @@ class QuizScreen extends React.Component {
                 </TouchableOpacity>
               );
             })}
-            <NewQuiz onPress={this.props.newQuiz} />
+            <NewQuiz onPress={showConfirmDialog} />
           </View>
         ) : (
           <View>

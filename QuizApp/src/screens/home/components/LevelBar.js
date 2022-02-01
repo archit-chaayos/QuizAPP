@@ -14,7 +14,7 @@ export default class LevelBar extends React.Component {
       <TouchableOpacity
         style={
           this.props.level === this.props.name
-            ? homeStyles.levelButtonsPress
+            ? [homeStyles.levelButtonsNormal, homeStyles.levelButtonsPress]
             : homeStyles.levelButtonsNormal
         }
         onPress={() => {

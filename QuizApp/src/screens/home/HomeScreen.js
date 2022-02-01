@@ -23,16 +23,11 @@ class HomeScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.setState({
-      noOfQuestions: '10',
-    });
-  }
-
   render() {
     const start = () => {
       this.props.start(this.state.noOfQuestions, this.props.level);
     };
+
     return (
       <View style={homeStyles.mainContainer}>
         {!this.props.loading ? (
@@ -41,6 +36,7 @@ class HomeScreen extends React.Component {
               style={homeStyles.inputContainer}
               placeholder="No of Questions (default is 10)"
               value={this.state.noOfQuestions}
+              numericvalue
               keyboardType="numeric"
               onChangeText={text => {
                 this.setState({noOfQuestions: text});

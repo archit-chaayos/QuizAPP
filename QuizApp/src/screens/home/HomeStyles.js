@@ -3,16 +3,10 @@ const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 export const homeStyles = StyleSheet.create({
   levelButtonsPress: {
-    flex: 1,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
     backgroundColor: '#38CC77',
   },
   levelButtonsNormal: {
     flex: 1,
-
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
